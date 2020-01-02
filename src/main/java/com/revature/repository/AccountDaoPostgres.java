@@ -12,6 +12,8 @@ import com.revature.model.Account;
 public class AccountDaoPostgres {
   private static Logger log= Logger.getLogger(AccountDaoPostgres.class);
 
+  public AccountDaoPostgres() {
+  }
   private static Connection conn;
   private static String protocol = "jdbc:postgresql://";
 
@@ -62,14 +64,14 @@ public class AccountDaoPostgres {
     ResultSet rs = null;
 
     try {
-      PreparedStatement stm = conn.prepareStatement("SELECT * FROM account WHERE name = ?");
+      PreparedStatement stm = conn.prepareStatement("SELECT * FROM account WHERE username = ?");
       stm.setString(1, username);
       if (stm.execute()) {
         rs = stm.getResultSet();
       }
       while (rs.next()) {
         act = new Account(rs.getInt("id"), rs.getString("name"), rs.getString("username"),
-            rs.getInt("password"), rs.getDouble("balance"));
+            rs.getString("password"), rs.getDouble("balance"));
       }
 
     } catch (SQLException e) {
@@ -79,14 +81,15 @@ public class AccountDaoPostgres {
     return act;
   }
 
-  public void save(String name, String username, int password, double balance) {
+  public void save( String name, String username, String password, double balance) {
     PreparedStatement stmt = null;
     try {
       stmt = conn.prepareStatement(
           "INSERT INTO account(name, username, password, balance) VALUES (?,?,?,?)");
+//      stmt.setInt(1, id);
       stmt.setString(1, name);
       stmt.setString(2,username);
-      stmt.setInt(3,password);
+      stmt.setString(3,password);
       stmt.setDouble(4,balance);
 
       stmt.execute();
@@ -95,13 +98,13 @@ public class AccountDaoPostgres {
     }
   }
 
-  public void updateBalance(Account account) {
+  public void updateBalance(double newBalance, String username) {
     PreparedStatement stmt = null;
     try {
-      stmt = conn.prepareStatement("UPDATE accounts SET balance = ?,  WHERE id = ?");
+      stmt = conn.prepareStatement("UPDATE account SET balance =  ?  WHERE username = ?");
 
-      stmt.setDouble(1, account.getBalance());
-      stmt.setInt(2, account.getId());
+      stmt.setDouble(1, newBalance);
+      stmt.setString(2, username);
 
       stmt.execute();
 

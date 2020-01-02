@@ -23,12 +23,15 @@ public class AccountController {
   static Scanner sc = new Scanner(System.in);
 
   //first prompt and get the user to log-in or register a new Account
+  public AccountController() {
+  }
   public int promptCHoices() {
+    AccountService accountService = new AccountService();
     int userInput = 0;
     System.out.println("Press 1 to login or 2 to register");
     do {
     userInput = sc.nextInt();
-    AccountService accountService = new AccountService();
+   
     if(userInput==1 ) 
       accountService.longIn();
     
@@ -42,17 +45,27 @@ public class AccountController {
   }
 
   // get the customer to choose a transaction or log-out 
-  public int transactionCHoices() {
-    int userInput = 0;
-    System.out.println("Press 1 to display the balance, or 2 to withdraw, 3 to deposit, or 4 to log out");
-    do {
-    userInput = sc.nextInt();
-    if(userInput<=4&&userInput>0)
-      break;
-      System.out.println("Please enter a validate number"); 
-    }while(true);
-    return userInput;
-  }
+  public void transactionCHoices(String username) {
+    AccountService accountService = new AccountService();
+    
+    System.out.println("Press 1 to display the balance, or 2 to withdraw, 3 to deposit,4 to trasfer money or 5 to log out");
+    
+    int userInput = sc.nextInt();
+    if(userInput<6 & userInput>0) {
+    if(userInput==1) {  
+      accountService.display(username);
+      
+    }else if (userInput == 2) {
+    accountService.withdraw(username);}
+    else if(userInput == 3) {
+      accountService.deposit(username);
+    }else if (userInput == 5) {
+      accountService.logOut(username);
+    }else if (userInput == 4){
+      accountService.transfer(username);
+    }
+    }else transactionCHoices( username);
+  } 
  
 
 //  Account displayBlance() {

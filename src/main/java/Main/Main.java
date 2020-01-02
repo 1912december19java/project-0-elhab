@@ -11,11 +11,11 @@ public class Main {
 
   public static void main(String[] args) {
 //     AccountDaoPostgres sample = new AccountDaoPostgres();
-       log.trace("starting");
-  AccountController controle = new AccountController(); 
-  controle.promptCHoices();
+      log.trace("starting");
+     AccountController controle = new AccountController(); 
+    controle.promptCHoices();
   
-//    System.out.println(sample.getName("han"));
+//    System.out.println(sample.getName("afkir"));
        
 
   }
