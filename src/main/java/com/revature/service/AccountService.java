@@ -12,8 +12,8 @@ import com.revature.exception.InvalidInputException;
 
 public class AccountService {
   private static Logger log = Logger.getLogger(Main.class);
-  private Account account = new Account();
-  private AccountController controle = new AccountController();
+  private static Account account = new Account();
+  private static AccountController controle = new AccountController();
   private AccountDaoPostgres postgress = new AccountDaoPostgres();
   // = new AccountDaoPostgres ();
 
@@ -93,8 +93,8 @@ public class AccountService {
     String password = "";
 
     username = input.next();
-
-    if (post.getName(username).getUsername() != null) {
+    
+    if (post.getName(username) != null) {
       do {
         System.out.println("Please enter a valid your password");
         password = input.next();
@@ -104,15 +104,14 @@ public class AccountService {
       controle.transactionCHoices(username);
     } else {
       try {
-        System.out.println(
-            "Sorry! your Username is not in our record please try again or register for a new account");
+        System.out.println( "Sorry! your Username is not in our record please try again or register for a new account");
         controle.promptCHoices();
       } catch (Exception e) {
         log.error("invalid username", e);
         System.out.println("Invalid Input");
+        
       }
-    }
-  }
+    } }
 
   // let costumer exit from the account
   public void logOut(String username) {
@@ -171,11 +170,11 @@ public class AccountService {
   }
 
   // display the balance for the costumer
-  public void display(String username) {
+  public static Account display(String username) {
     AccountDaoPostgres post = new AccountDaoPostgres();
     System.out.println("Your balance is  " + post.getName(username).getBalance());
     System.out.println("Anything else you wanna do ?");
     controle.transactionCHoices(username);
-
+ return post.getName(username);
   }
 }

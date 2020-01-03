@@ -17,7 +17,7 @@ public class AccountController {
   // public AccountController() {
   // }
 
-  public static int promptCHoices() throws InvalidInputException {
+  public  int promptCHoices() throws InvalidInputException {
     AccountService accountService = new AccountService();
 
     int userInput = 0;
@@ -57,8 +57,6 @@ public class AccountController {
     // convert the string read from the scanner into Integer type
     userInput = Integer.parseInt(sc.nextLine());
 
-
-    // NumberFormatException ne
 
     if (userInput < 6 & userInput > 0) {
       if (userInput == 1) {
