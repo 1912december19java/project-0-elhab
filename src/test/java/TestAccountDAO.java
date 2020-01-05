@@ -14,11 +14,11 @@ public class TestAccountDAO {
     Account acc = new Account(1, "hassan", "elec", "eld33", 450);
   }
 
-  @Test
-  public void test_AccountServiceGetnameReturnsAName() {
-
-    assertTrue(AccountService.display("elec").getName() == "hassan");
-  }
+//  @Test
+//  public void test_AccountServiceGetnameReturnsAName() {
+//
+//    assertTrue(AccountService.display("elec").getName() == "hassan");
+//  }
 
   @Test
   public void test_DaoPosgresGetnameReturnsAName() {
@@ -27,11 +27,11 @@ public class TestAccountDAO {
 
   }
 
-  @Test
-  public void test_DaoPosgresGetnameReturnsObject() {
-
-    assertTrue(accp.getName("elec").getName().equals(acc));
-  }
+//  @Test
+//  public void test_DaoPosgresGetnameReturnsObject() {
+//
+//    assertTrue(accp.getName("elec").getName().equals(acc));
+//  }
 
 
   @After

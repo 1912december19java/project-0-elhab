@@ -4,6 +4,7 @@ import com.revature.model.Account;
 import com.revature.repository.AccountDaoPostgres;
 import Main.Main;
 import java.sql.SQLException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import org.apache.log4j.Logger;
 import com.revature.controller.AccountController;
@@ -30,8 +31,12 @@ public class AccountService {
 
   // deposit an amount less or equal to the balance
   public void withdraw(String username) {
+    try {
     System.out.println("what is the amount you want to withdraw");
-    double amount = input.nextDouble();
+    
+    Scanner input2 = new Scanner(System.in);
+    double amount = input2.nextDouble();
+    if (amount<=0) {throw new InputMismatchException(); }
     double balance = postgress.getName(username).getBalance();
     double entry = 0;
     entry = balance - amount;
@@ -48,23 +53,37 @@ public class AccountService {
       newBalance = 0;
       System.out.println("You only have:" + balance + " try again");
       withdraw(username);
+    } }
+    catch (InputMismatchException e) {
+      System.out.println("please enter a valid amount");
+       deposit(username);
     }
   }
 
   // deposit an amount to the account
+  
   public void deposit(String username) {
+    try {
     System.out.println("what is the amount you want to deposit");
     double amount = 0;
-
-    amount = input.nextDouble();
-
+    double newBalance=0;
+    
+    Scanner input2 = new Scanner(System.in);
+    amount = input2.nextDouble();
+     if (amount<=0) {throw new InputMismatchException(); }
     double balance = postgress.getName(username).getBalance();
-    double newBalance = amount + balance;
+     newBalance = amount + balance;
     postgress.updateBalance(newBalance, username);
+    
     System.out.println("Your new balance is" + newBalance);
 
     System.out.println("thanks for depsoiting your money, anything else you wanna do");
     controle.transactionCHoices(username);
+    }
+    catch (InputMismatchException e) {
+      System.out.println("please enter a valid amount");
+       deposit(username);
+    }
   }
 
   // get the costumer to register.
