@@ -15,6 +15,7 @@ public class Main {
     log.trace("starting");
     AccountController controle = new AccountController();
     try {
+     
       controle.promptCHoices();
     } catch (NumberFormatException ne) {
       log.error("not a valid number", ne);

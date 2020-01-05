@@ -19,9 +19,10 @@ public class AccountController {
 
   public  int promptCHoices() throws InvalidInputException {
     AccountService accountService = new AccountService();
+    System.out.println("Welcome to REVATURE BANK");
 
     int userInput = 0;
-    System.out.println("Press 1 to login or 2 to register");
+    System.out.println("Press 1 to login or 2 to open a new account");
 
     do {
 
@@ -50,6 +51,7 @@ public class AccountController {
   public void transactionCHoices(String username) {
     AccountService accountService = new AccountService();
     int userInput = 0;
+    
     System.out.println(
         "Press 1 to display the balance, or 2 to withdraw, 3 to deposit,4 to trasfer money or 5 to log out");
 
